@@ -17,6 +17,39 @@
 
 ## 索引
 
+### tui
+
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-inline-ui-mechanism-and-java-port.md](tui/pi/01-inline-ui-mechanism-and-java-port.md) | 内联终端界面的运行机制：输入与编辑、差分渲染、历史不可变边界、消息与工具卡片、选择器、主题，以及 Jade Code 的 Java 复刻分层与落地顺序 |
+| 02 | [02-java-tui-architecture.md](tui/pi/02-java-tui-architecture.md) | 基于 Jade Code 现有源码的 Java TUI 架构：`SessionRuntime`/`ResponseStream`/`Hooks`/`Approval` 的真实接缝、`TaggedOutput` 身份桥接、`TuiPresentation` 与 `StreamingAdapter`、包结构、线程模型、分阶段落地与验证清单 |
+
+### context-compaction
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-research-plan.md](context-compaction/codex/01-research-plan.md) | 研究计划：Codex 上下文压缩的触发、实现选择、远端压缩、历史替换与恢复 |
+| 02 | [02-default-remote-compaction-path.md](context-compaction/codex/02-default-remote-compaction-path.md) | 默认远端压缩路径：90% 阈值、供应商能力选择 V2、请求形状、64K 保留策略、检查点与失败边界 |
+
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-research-plan.md](context-compaction/claude-code/01-research-plan.md) | 研究计划：Claude Code 上下文压缩的触发条件、分层机制、压缩后重建、失败降级与持久化 |
+| 02 | [02-context-compaction-mechanism.md](context-compaction/claude-code/02-context-compaction-mechanism.md) | 上下文压缩机制：工具结果预算、微压缩、会话记忆压缩、整段摘要、压缩后附件重建、响应式路径与阈值 |
+| 03 | [03-default-behavior-and-feature-gates.md](context-compaction/claude-code/03-default-behavior-and-feature-gates.md) | 默认行为与功能开关：四类默认来源、默认开启/关闭清单、默认阈值与外部构建的实际主干路径 |
+
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-research-plan.md](context-compaction/pi/01-research-plan.md) | 研究计划：Pi 上下文压缩的触发、切点、摘要、持久化、溢出恢复与分支摘要 |
+| 02 | [02-compaction-and-branch-summary.md](context-compaction/pi/02-compaction-and-branch-summary.md) | 压缩与分支摘要：默认阈值、切点规则、结构化摘要、会话树投影、溢出恢复与 `pi-durable` 边界 |
+
 ### memory-system
 
 #### claude-code
@@ -61,6 +94,14 @@
 |---|---|---|
 | 01 | [01-research-plan.md](prompt-layering/codex/01-research-plan.md) | 研究计划：Codex 的系统 / 开发者 / 用户三级提示词如何分层、优先级由什么机制保障。含初步核查结论（非单一优先级表，而是角色语义、位置顺序、文本内覆盖声明、配置覆盖链四类机制叠加）与待确认的范围问题 |
 | 02 | [02-instruction-precedence-enforcement.md](prompt-layering/codex/02-instruction-precedence-enforcement.md) | 优先级到底靠什么保证：代码层不做冲突裁决；实际靠“放对角色槽位 + 文本里写清层级规则 + 声明失效”三件事，另含系统层主动向下层让步、开发者层自愿服从用户请求、以及一处文字与实现不一致的记录 |
+
+### reasoning-propagation
+
+#### comparison
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-chain-of-thought-propagation.md](reasoning-propagation/comparison/01-chain-of-thought-propagation.md) | Pi、Codex、Claude Code 的推理块回传对照：模型下发形态、本地持久化、跨轮/工具续轮回放、用户可见性、换模型与压缩边界 |
 
 ### session-history
 
