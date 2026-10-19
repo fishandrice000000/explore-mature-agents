@@ -1,5 +1,3 @@
-`
-
 # Memory system - Codex - 01 - Codex memory system
 
 ---
