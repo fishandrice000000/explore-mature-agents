@@ -110,6 +110,7 @@
 | # | 文件 | 主题 |
 |---|---|---|
 | 01 | [01-session-persistence-and-resume.md](session-history/claude-code/01-session-persistence-and-resume.md) | Claude Code 会话历史持久化与 `/resume`：每会话追加式 JSONL、消息 UUID 与 `parentUuid` 主线、会话列表轻量扫描、压缩边界/删除标记/父链修复、文件回退与已读缓存等旁路状态恢复 |
+| 02 | [02-resume-command-and-jade-port.md](session-history/claude-code/02-resume-command-and-jade-port.md) | `/resume` 端到端机制：会话内与启动入口、选择器与跨目录、消息链修复、旁路状态切换，以及 Jade Code 复刻所需的会话日志、恢复修复和运行时切换边界 |
 
 ### task-system
 
