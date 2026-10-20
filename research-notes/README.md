@@ -86,6 +86,14 @@
 | 01 | [01-research-plan.md](multi-agent/codex/01-research-plan.md) | 研究计划：Codex 常驻多 Agent（注册表 / 身份 / 角色 / 消息板 / 生命周期控制）的开启条件、任务分配、通信、上下文隔离与并发；含待确认范围（新旧两版如何取舍、是否包含角色与消息板、worktree 边界） |
 | 02 | [02-persistent-teammate-collaboration.md](multi-agent/codex/02-persistent-teammate-collaboration.md) | Codex 常驻多 Agent 机制：版本与主动委派模式的开启条件、父代理显式下发（无任务池）、内存邮箱与触发型/非触发型消息、all/none 有损上下文继承、槽位准入与驻留驱逐，以及文件级并发的缺口 |
 
+### permission-system
+
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-permission-modes-and-approval-flow.md](permission-system/claude-code/01-permission-modes-and-approval-flow.md) | 权限档位与审批判定：外部五档与内部 `auto`、逐工具参数解释、拒绝/询问/模式/允许的优先级、规则来源与记忆语义、Bash 子命令与沙箱、计划模式和绕过模式的真实边界 |
+
 ### prompt-layering
 
 #### codex
