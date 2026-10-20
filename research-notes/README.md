@@ -94,6 +94,12 @@
 |---|---|---|
 | 01 | [01-permission-modes-and-approval-flow.md](permission-system/claude-code/01-permission-modes-and-approval-flow.md) | 权限档位与审批判定：外部五档与内部 `auto`、逐工具参数解释、拒绝/询问/模式/允许的优先级、规则来源与记忆语义、Bash 子命令与沙箱、计划模式和绕过模式的真实边界 |
 
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-approval-and-sandbox-model.md](permission-system/codex/01-approval-and-sandbox-model.md) | Codex 的审批策略与沙箱权限双层模型：Read Only/Ask/Approve for me/Full Access、`on-request`/`never`/`untrusted`/`granular`、工作区与网络范围、execpolicy、补丁与 MCP 判定、自动审查、授权记忆与边界 |
+
 ### prompt-layering
 
 #### codex
