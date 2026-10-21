@@ -54,6 +54,12 @@
 |---|---|---|
 | 01 | [01-search-mechanism.md](web-search/codex/01-search-mechanism.md) | 托管 `web_search` 与独立 `web.run` 两条互斥检索路径：四档访问模式与默认 `cached`、每轮降级与沙箱关闭时的提升、命令集合与会话尾部裁剪、结果旁路与外部内容标记、引用与字数约束 |
 
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-no-first-party-search.md](web-search/pi/01-no-first-party-search.md) | 不提供第一方联网检索：内置工具集的封闭枚举、模型接口层无法表达供应商原生工具、提示词既无联网声明也无日期注入，唯一联网途径是借 shell 调外部程序及其缺失的检索专用层 |
+
 ### context-compaction
 
 #### codex
