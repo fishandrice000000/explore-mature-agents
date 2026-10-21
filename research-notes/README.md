@@ -40,6 +40,20 @@
 |---|---|---|
 | 01 | [01-page-retrieval-mechanism.md](web-fetch/codex/01-page-retrieval-mechanism.md) | 没有独立 Fetch 工具时，Codex 如何通过托管 `web_search` 的 `open_page` 或独立 `web.run` 的 `open` 完成远端页面读取、访问模式控制、输出回传与结果旁路 |
 
+### web-search
+
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-search-mechanism.md](web-search/claude-code/01-search-mechanism.md) | `WebSearch` 不是搜索客户端，而是“一次嵌套模型请求”：服务端检索工具的声明与次数上限、块序列折叠成摘要与链接、结果体积与落盘、权限询问、延迟加载、引用提醒与失败路径 |
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-search-mechanism.md](web-search/codex/01-search-mechanism.md) | 托管 `web_search` 与独立 `web.run` 两条互斥检索路径：四档访问模式与默认 `cached`、每轮降级与沙箱关闭时的提升、命令集合与会话尾部裁剪、结果旁路与外部内容标记、引用与字数约束 |
+
 ### context-compaction
 
 #### codex
