@@ -118,6 +118,12 @@
 |---|---|---|
 | 01 | [01-mcp-tool-lifecycle.md](mcp-tools/codex/01-mcp-tool-lifecycle.md) | MCP 工具全链路：运行时 Server 投影、分页工具目录、可见性过滤与命名去重、直接/延迟/Code Mode 暴露、目录快照绑定调用、注解驱动审批、认证与结果预算 |
 
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-mcp-tool-lifecycle.md](mcp-tools/pi/01-mcp-tool-lifecycle.md) | MCP 工具全链路（三层结构：客户端包 / 内置扩展 / 工具池）：两处配置与项目覆盖、后台连接与精准等待、`mcp__server__tool` 命名与哈希去重、四档暴露（默认只能从脚本调用）、系统提示服务器清单预算、内容块转换与 20KB 中部截断、会话过期重试与隐藏式撤销 |
+
 ### multi-agent
 
 #### claude-code
