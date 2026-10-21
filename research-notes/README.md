@@ -84,6 +84,20 @@
 
 > `01` 为首次探索版（含较多源码标识符），`02` 为按机制讲解规范重写的版本。阅读建议以 `02` 为主、`01` 作为可追溯的细节底稿。
 
+### mcp-tools
+
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-mcp-tool-lifecycle.md](mcp-tools/claude-code/01-mcp-tool-lifecycle.md) | MCP 工具全链路：多来源 Server 配置与连接、单页工具发现与变更刷新、统一工具适配与工具搜索、默认审批、并发编排、协议调用、会话恢复、结果归一化与大结果降级 |
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-mcp-tool-lifecycle.md](mcp-tools/codex/01-mcp-tool-lifecycle.md) | MCP 工具全链路：运行时 Server 投影、分页工具目录、可见性过滤与命名去重、直接/延迟/Code Mode 暴露、目录快照绑定调用、注解驱动审批、认证与结果预算 |
+
 ### multi-agent
 
 #### claude-code
