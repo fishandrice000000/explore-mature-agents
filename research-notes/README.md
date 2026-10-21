@@ -40,6 +40,12 @@
 |---|---|---|
 | 01 | [01-page-retrieval-mechanism.md](web-fetch/codex/01-page-retrieval-mechanism.md) | 没有独立 Fetch 工具时，Codex 如何通过托管 `web_search` 的 `open_page` 或独立 `web.run` 的 `open` 完成远端页面读取、访问模式控制、输出回传与结果旁路 |
 
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-no-first-party-fetch.md](web-fetch/pi/01-no-first-party-fetch.md) | 不提供第一方网页抓取：读取工具只做本地路径解析与存在性探测（无 URL 分支）、工具枚举与模型接口均无抓取表达、提示词无抓取与引用约定；唯一取页路径是借 shell 取回原文并走通用截断，缺失 HTML 转换、正文提炼、域名策略与缓存 |
+
 ### web-search
 
 #### claude-code
