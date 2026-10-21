@@ -26,6 +26,20 @@
 | 01 | [01-inline-ui-mechanism-and-java-port.md](tui/pi/01-inline-ui-mechanism-and-java-port.md) | 内联终端界面的运行机制：输入与编辑、差分渲染、历史不可变边界、消息与工具卡片、选择器、主题，以及 Jade Code 的 Java 复刻分层与落地顺序 |
 | 02 | [02-java-tui-architecture.md](tui/pi/02-java-tui-architecture.md) | 基于 Jade Code 现有源码的 Java TUI 架构：`SessionRuntime`/`ResponseStream`/`Hooks`/`Approval` 的真实接缝、`TaggedOutput` 身份桥接、`TuiPresentation` 与 `StreamingAdapter`、包结构、线程模型、分阶段落地与验证清单 |
 
+### web-fetch
+
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-webfetch-mechanism.md](web-fetch/claude-code/01-webfetch-mechanism.md) | `WebFetch` 的 URL 抓取、域名权限与风险预检、跨域重定向、HTML 转 Markdown、小模型提炼、缓存、失败路径与资源上限 |
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-page-retrieval-mechanism.md](web-fetch/codex/01-page-retrieval-mechanism.md) | 没有独立 Fetch 工具时，Codex 如何通过托管 `web_search` 的 `open_page` 或独立 `web.run` 的 `open` 完成远端页面读取、访问模式控制、输出回传与结果旁路 |
+
 ### context-compaction
 
 #### codex
