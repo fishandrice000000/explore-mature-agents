@@ -96,6 +96,7 @@
 | 01 | [01-research-plan.md](context-compaction/pi/01-research-plan.md) | 研究计划：Pi 上下文压缩的触发、切点、摘要、持久化、溢出恢复与分支摘要 |
 | 02 | [02-compaction-and-branch-summary.md](context-compaction/pi/02-compaction-and-branch-summary.md) | 压缩与分支摘要：默认阈值、切点规则、结构化摘要、会话树投影、溢出恢复与 `pi-durable` 边界 |
 | 03 | [03-auto-compaction-threshold.md](context-compaction/pi/03-auto-compaction-threshold.md) | 自动压缩触发阈值：窗口减 16384 的绝对值比较、token 口径、三处检查时机、配置覆盖与边界行为 |
+| 04 | [04-context-token-accounting.md](context-compaction/pi/04-context-token-accounting.md) | 上下文 token 统计：最近的助手 usage 作锚点、尾部字符估算、系统提示重放、压缩/编辑后的失效回退与各检查点取数路径 |
 
 ### memory-system
 
