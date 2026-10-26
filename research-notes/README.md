@@ -25,6 +25,12 @@
 |---|---|---|
 | 01 | [01-inline-ui-mechanism-and-java-port.md](tui/pi/01-inline-ui-mechanism-and-java-port.md) | 内联终端界面的运行机制：输入与编辑、差分渲染、历史不可变边界、消息与工具卡片、选择器、主题，以及 Jade Code 的 Java 复刻分层与落地顺序 |
 | 02 | [02-java-tui-architecture.md](tui/pi/02-java-tui-architecture.md) | 基于 Jade Code 现有源码的 Java TUI 架构：`SessionRuntime`/`ResponseStream`/`Hooks`/`Approval` 的真实接缝、`TaggedOutput` 身份桥接、`TuiPresentation` 与 `StreamingAdapter`、包结构、线程模型、分阶段落地与验证清单 |
+| 03 | [03-runtime-and-render-pipeline.md](tui/pi/03-runtime-and-render-pipeline.md) | 运行模型、终端适配与两种差分渲染器：默认 fullscreen 与 regular 的进入/退出、16ms 调度、Kitty 协商、主屏行 diff、备用屏布局/鼠标/搜索/选择、退出 transcript 重放 |
+| 04 | [04-layout-components-overlays.md](tui/pi/04-layout-components-overlays.md) | 布局、组件、Overlay 与文本几何：grapheme 宽度、ANSI 折行/截断/切列/合成、Box/Stack/Layout rect-clip、ScrollView/滚动条、Overlay 尺寸/焦点/鼠标命中 |
+| 05 | [05-input-editor-keybindings.md](tui/pi/05-input-editor-keybindings.md) | 输入、键绑定、编辑器与补全：legacy/Kitty/modifyOtherKeys 解析、键绑定优先级、视觉行/粘性列/撤销/kill ring/大粘贴、slashed/@ 文件补全、Input/SelectList |
+| 06 | [06-markdown-theme-images.md](tui/pi/06-markdown-theme-images.md) | Markdown、主题、图片与动效：marked+LaTeX/严格删除线、代码高亮/表格/链接、55 个主题 token 与 system/dark/light、OKLCH/256 色、Kitty/iTerm2 图片、Loader/spinner |
+| 07 | [07-coding-agent-interactive-assembly.md](tui/pi/07-coding-agent-interactive-assembly.md) | Coding Agent 交互层组装：header/chat/pending/status/editor/footer 组件树、regular vs fullscreen dock、消息/thinking/工具卡/bash 卡、流式事件顺序、选择器替换 editor、退出重放 |
+| 08 | [08-jadecode-porting-map.md](tui/pi/08-jadecode-porting-map.md) | JadeCode 逐项差距与移植路线：现有 `TuiApplication`/`TuiController`/`InlineRenderer`/`Editor`/`Theme` 对照 Pi、目标包结构、行表示取舍、阶段 0–7、验收矩阵与常见坑 |
 
 ### web-fetch
 
@@ -89,6 +95,7 @@
 |---|---|---|
 | 01 | [01-research-plan.md](context-compaction/pi/01-research-plan.md) | 研究计划：Pi 上下文压缩的触发、切点、摘要、持久化、溢出恢复与分支摘要 |
 | 02 | [02-compaction-and-branch-summary.md](context-compaction/pi/02-compaction-and-branch-summary.md) | 压缩与分支摘要：默认阈值、切点规则、结构化摘要、会话树投影、溢出恢复与 `pi-durable` 边界 |
+| 03 | [03-auto-compaction-threshold.md](context-compaction/pi/03-auto-compaction-threshold.md) | 自动压缩触发阈值：窗口减 16384 的绝对值比较、token 口径、三处检查时机、配置覆盖与边界行为 |
 
 ### memory-system
 
