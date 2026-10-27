@@ -166,6 +166,7 @@
 | # | 文件 | 主题 |
 |---|---|---|
 | 01 | [01-delegation-mechanism.md](multi-agent/poirot/01-delegation-mechanism.md) | 委派式多 Agent 的装配、执行与结果回流：装配期决定可委派对象、软路由（提示词 + 工具）、一次委派的六阶段时序、pi/codex/claude/自拷贝四种执行体的协议差异、产物门槛导致外部委派恒判失败、编排产物无消费者、并发与超时边界，以及自拷贝两条路径的执行断链 |
+| 02 | [02-no-persistent-agents.md](multi-agent/poirot/02-no-persistent-agents.md) | 为什么没有常驻型 Agent：进程/线程/对象/状态四层盘点（三个常驻后台线程都是基础设施）、一次性委派契约如何结构上排除驻留与恢复、与 Claude Code 队友与 Codex 工作组的形态对照、四项缺失能力与由此产生的边界 |
 
 ### permission-system
 
