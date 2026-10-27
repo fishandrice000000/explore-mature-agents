@@ -10,8 +10,9 @@
 | Claude Code | `/home/fishandrice/Backend/claude-code/claude-code-2.1.88-source` | [`claude-code.md`](claude-code.md) | React/Ink 终端应用；REPL 负责交互编排，`query.ts` 是共同 agent 循环 |
 | Pi | `/home/fishandrice/Backend/pi` | [`pi.md`](pi.md) | npm monorepo；agent-core 提供通用循环，coding-agent 组合 CLI 与会话，durable 是独立运行时 |
 | SkillOpt | `/home/fishandrice/Backend/SkillOpt` | [`skillopt.md`](skillopt.md) | Python 包；不是 Agent Harness，而是离线优化 Markdown 技能文档的训练器，另有独立的夜间自演化包 |
+| Poirot | `/home/fishandrice/Backend/poirot` | [`poirot.md`](poirot.md) | Python 3.12 + LangGraph；单 Leader ReAct 图 + 20 余个横切中间件，能力默认值分散在各自开关，属自研未成熟项目 |
 
-前三份导航在 2026-10-17 核对，SkillOpt 于 2026-10-27 新增。导航文档不是行为结论，具体机制仍以源码和测试为准。
+前三份导航在 2026-10-17 核对，SkillOpt 与 Poirot 于 2026-10-27 新增。导航文档不是行为结论，具体机制仍以源码和测试为准。
 
 ## 使用顺序
 
