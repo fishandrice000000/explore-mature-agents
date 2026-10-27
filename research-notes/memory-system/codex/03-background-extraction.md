@@ -45,14 +45,14 @@ flowchart TD
 
 进入流水线后，下面这条链路里任何一项不满足都会静默跳过（只留日志/指标）：
 
-| 关卡 | 判定 | 后果 |
-|---|---|---|
-| 会话是否临时 | 临时会话（例如内部代理会话） | 跳过 |
-| 功能开关 | `memories` 功能未启用 | 跳过 |
-| 会话身份 | 来源是内部会话或子代理会话（非 root） | 跳过 |
-| 环境就绪 | 线程的首选执行环境尚未配置好 | 调用方不派发 |
-| 状态库 | 记忆状态库打不开 | 跳过并告警 |
-| 额度 | Codex 后端额度窗口剩余低于阈值（默认 25%）或已触顶 | 整条流水线（含第二阶段）跳过 |
+| 关卡         | 判定                                               | 后果                         |
+| ------------ | -------------------------------------------------- | ---------------------------- |
+| 会话是否临时 | 临时会话（例如内部代理会话）                       | 跳过                         |
+| 功能开关     | `memories` 功能未启用                            | 跳过                         |
+| 会话身份     | 来源是内部会话或子代理会话（非 root）              | 跳过                         |
+| 环境就绪     | 线程的首选执行环境尚未配置好                       | 调用方不派发                 |
+| 状态库       | 记忆状态库打不开                                   | 跳过并告警                   |
+| 额度         | Codex 后端额度窗口剩余低于阈值（默认 25%）或已触顶 | 整条流水线（含第二阶段）跳过 |
 
 两个容易被忽略的细节：
 
@@ -65,17 +65,17 @@ flowchart TD
 
 扫描对象是本地会话目录表（不是文件系统遍历），筛选条件按顺序叠在一张 SQL 里：
 
-| 条件 | 默认值 | 作用 |
-|---|---|---|
-| 未归档 | — | 归档会话不进入长期记忆 |
-| 有预览（非空） | — | 过滤掉空壳会话记录 |
-| 记忆模式为启用 | 由会话创建时的"生成记忆"开关决定 | 关闭生成的会话永不被提取 |
-| 来源属于交互式会话 | 命令行、VS Code、atlas、chatgpt | 内部/子代理/未知来源不参与 |
-| 活跃时间足够新 | 10 天内 | 太老的会话不再提取 |
-| 空闲时间足够长 | 6 小时 | 避免给"还在进行中"的会话做总结 |
-| 不是当前会话自己 | — | 自己不给自己的会话做总结 |
-| 冷却与水位线 | 见下节 | 已经提取过且没有新活动就跳过 |
-| 扫描上限 | 最近活跃的 5000 条 | 每次派发的扫描成本上限 |
+| 条件               | 默认值                           | 作用                           |
+| ------------------ | -------------------------------- | ------------------------------ |
+| 未归档             | —                               | 归档会话不进入长期记忆         |
+| 有预览（非空）     | —                               | 过滤掉空壳会话记录             |
+| 记忆模式为启用     | 由会话创建时的"生成记忆"开关决定 | 关闭生成的会话永不被提取       |
+| 来源属于交互式会话 | 命令行、VS Code、atlas、chatgpt  | 内部/子代理/未知来源不参与     |
+| 活跃时间足够新     | 10 天内                          | 太老的会话不再提取             |
+| 空闲时间足够长     | 6 小时                           | 避免给"还在进行中"的会话做总结 |
+| 不是当前会话自己   | —                               | 自己不给自己的会话做总结       |
+| 冷却与水位线       | 见下节                           | 已经提取过且没有新活动就跳过   |
+| 扫描上限           | 最近活跃的 5000 条               | 每次派发的扫描成本上限         |
 
 这里有三个值得记住的机制含义：
 
@@ -142,10 +142,10 @@ v2 换了一套更像"取证"的做法：
 
 输出契约由 JSON Schema 强约束（严格模式，禁止多余字段）：
 
-| 版本 | 字段 | 说明 |
-|---|---|---|
-| v1 | `raw_memory`、`rollout_summary`、`rollout_slug` | raw_memory 是任务分组的、带前言元信息（描述/task/关键词/工作目录）的结构化记忆；summary 是更详细的参考稿；slug 用于给摘要文件起名 |
-| v2 | `rollout_summary`、`rollout_slug` | **不再产出 raw memory**，只产出摘要与 slug |
+| 版本 | 字段                                                  | 说明                                                                                                                              |
+| ---- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| v1   | `raw_memory`、`rollout_summary`、`rollout_slug` | raw_memory 是任务分组的、带前言元信息（描述/task/关键词/工作目录）的结构化记忆；summary 是更详细的参考稿；slug 用于给摘要文件起名 |
+| v2   | `rollout_summary`、`rollout_slug`                 | **不再产出 raw memory**，只产出摘要与 slug                                                                                  |
 
 模型调用本身是"一次采样"：无工具、无审批、无循环。推理强度固定为低（v1/v2 同），模型取"提取专用模型"配置，未配置时用供应商的默认提取模型；服务档位（service tier）沿用在用会话的实时配置。请求头里带一组"记忆任务"标记：请求类型是 memory、回合触发原因是记忆整理、不携带会话 id 与线程 id、回放窗口被省略。这意味着后台请求在遥测和后端视角里是**可识别的旁路请求**，而不是伪装成用户回合。
 
@@ -155,11 +155,11 @@ v2 换了一套更像"取证"的做法：
 
 每次提取只有三种合法结局，都要通过"所有权令牌匹配"才能写回（防止租约被抢走后旧 worker 覆盖新结果）：
 
-| 结局 | 触发 | 数据库动作 |
-|---|---|---|
-| 有产出 | JSON 解析成功且字段非空 | 作业置完成、记录成功水位线；按"来源时间戳不更旧"的规则插入或覆盖该会话的提取记录；推进第二阶段的输入水位线 |
-| 无产出 | 解析成功但字段为空（no-op） | 作业置完成；**删除**该会话已有的提取记录；只有在真的删掉了旧记录时才推进第二阶段 |
-| 失败 | 读会话失败、模型调用失败、JSON 不合法 | 作业置错误、清租约、重试次数减一、退避 1 小时后重试 |
+| 结局   | 触发                                  | 数据库动作                                                                                                 |
+| ------ | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 有产出 | JSON 解析成功且字段非空               | 作业置完成、记录成功水位线；按"来源时间戳不更旧"的规则插入或覆盖该会话的提取记录；推进第二阶段的输入水位线 |
+| 无产出 | 解析成功但字段为空（no-op）           | 作业置完成；**删除**该会话已有的提取记录；只有在真的删掉了旧记录时才推进第二阶段                     |
+| 失败   | 读会话失败、模型调用失败、JSON 不合法 | 作业置错误、清租约、重试次数减一、退避 1 小时后重试                                                        |
 
 "无产出 = 删除旧记录"这个设计值得单独说明：它让记忆库具备**自我修正能力**。一条会话如果被重新提取后判定"没什么值得记的"，它过去留下的记忆会被撤掉，而不是永久滞留。
 
@@ -192,14 +192,14 @@ v2 换了一套更像"取证"的做法：
 
 ## 十、边界与版本差异汇总
 
-| 维度 | v1 | v2 |
-|---|---|---|
-| 触发与抢占地基 | 同一套（各自独立的库与目录） | 同一套 |
-| 输入构造 | 整段序列化 + 中段截断 | 按层级选证据 + 占位符 + 分片消息 |
-| 媒体内容 | 未做占位替换 | 替换为文本占位 |
-| 输出 | raw memory + summary + slug | summary + slug |
-| 落库形态 | 原始记忆 + 摘要 | 仅摘要 |
-| 摘要长度兜底 | 无显式上限 | 截到 9000 字节 |
+| 维度           | v1                           | v2                               |
+| -------------- | ---------------------------- | -------------------------------- |
+| 触发与抢占地基 | 同一套（各自独立的库与目录） | 同一套                           |
+| 输入构造       | 整段序列化 + 中段截断        | 按层级选证据 + 占位符 + 分片消息 |
+| 媒体内容       | 未做占位替换                 | 替换为文本占位                   |
+| 输出           | raw memory + summary + slug  | summary + slug                   |
+| 落库形态       | 原始记忆 + 摘要              | 仅摘要                           |
+| 摘要长度兜底   | 无显式上限                   | 截到 9000 字节                   |
 
 ## 十一、已证实 / 合理推断 / 无法确认
 
@@ -230,25 +230,25 @@ v2 换了一套更像"取证"的做法：
 
 ## 源码依据
 
-| 位置 | 关键内容 |
-|---|---|
-| `codex-rs/app-server/src/request_processors/turn_processor.rs` | 回合启动后派发记忆流水线（`turn_has_input && started`、首选环境就绪判定） |
-| `codex-rs/memories/write/src/start.rs` | `start_memories_startup_task`：关卡判定、双写分流、派发顺序（建目录 → 播种扩展 → 清理 → 额度守卫 → 阶段一 → 阶段二） |
-| `codex-rs/memories/write/src/lib.rs` | 阶段一常量：并发 8、租约 3600、退避 3600、扫描 5000、清理批量 200、上下文占比 70%、回落 15 万 token；产物文件名 |
-| `codex-rs/memories/write/src/phase1.rs` | `run` / `prune` / `claim_startup_jobs` / `run_jobs`（`buffer_unordered`）/ `job::run` / `sample` / `result::{success,no_output,failed}` |
-| `codex-rs/memories/write/src/runtime.rs` | `MemoryStartupContext`、`StageOneRequestContext`、`stream_stage_one_prompt`（单次流式采样）、`spawn_consolidation_agent` |
-| `codex-rs/memories/write/src/rollout_input.rs` | v2 证据分层 `serialize_tiered_input`、`extraction_messages` 分片、`sanitize_response_item_for_memories`、占位符与预算常量 |
-| `codex-rs/memories/write/src/phase1_output.rs` | v1/v2 输出结构、`output_schema`、解析与二次脱敏/截断 |
-| `codex-rs/memories/write/src/prompts.rs` | `rollout_token_limit`、v1/v2 输入消息模板渲染 |
-| `codex-rs/memories/write/templates/memories/stage_one_system.md`、`stage_one_system_v2.md`、`stage_one_input*.md` | 提取提示词与取值纪律、no-op 通道 |
-| `codex-rs/memories/write/src/guard.rs` | 额度守卫判定（后端登录才生效、两个窗口都要满足剩余比例） |
-| `codex-rs/memories/write/src/extensions/prune.rs` | 记忆扩展资源清理（7 天保留） |
-| `codex-rs/state/src/runtime/memories.rs` | `claim_stage1_jobs_for_startup`、`try_claim_stage1_job`、`mark_stage1_job_succeeded{,_no_output}`、`mark_stage1_job_failed`、`prune_stage1_outputs_for_retention`、`enqueue_global_consolidation`；相关状态测试 |
-| `codex-rs/state/memory_migrations/0001_memories.sql` | `stage1_outputs` 与 `jobs` 表结构 |
-| `codex-rs/state/src/runtime/memory_versions.rs`、`state/src/sqlite.rs` | 分版本记忆状态库路径与按需创建 |
-| `codex-rs/config/src/types.rs` | `MemoriesConfig` 默认值与夹取区间（2/10/6/30/256/25 等） |
-| `codex-rs/features/src/lib.rs` | `Feature::MemoryTool`（key `memories`、Stage Stable、默认关闭） |
-| `codex-rs/rollout/src/lib.rs`、`rollout/src/policy.rs` | 交互式来源白名单、哪些条目允许进入记忆 |
-| `codex-rs/model-provider/src/provider.rs` | 供应商默认提取/整理模型与可覆写点 |
-| `codex-rs/core/src/stream_events_utils.rs`、`core/src/session/session.rs` | 记忆模式（enabled/polluted/disabled）的写入时机 |
-| `codex-rs/memories/write/src/startup_tests.rs` | 端到端行为测试：请求元数据、v2 证据保留/脱敏、模型覆盖、工作区差分 |
+| 位置                                                                                                                    | 关键内容                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `codex-rs/app-server/src/request_processors/turn_processor.rs`                                                        | 回合启动后派发记忆流水线（`turn_has_input && started`、首选环境就绪判定）                                                                                                                                                 |
+| `codex-rs/memories/write/src/start.rs`                                                                                | `start_memories_startup_task`：关卡判定、双写分流、派发顺序（建目录 → 播种扩展 → 清理 → 额度守卫 → 阶段一 → 阶段二）                                                                                                 |
+| `codex-rs/memories/write/src/lib.rs`                                                                                  | 阶段一常量：并发 8、租约 3600、退避 3600、扫描 5000、清理批量 200、上下文占比 70%、回落 15 万 token；产物文件名                                                                                                             |
+| `codex-rs/memories/write/src/phase1.rs`                                                                               | `run` / `prune` / `claim_startup_jobs` / `run_jobs`（`buffer_unordered`）/ `job::run` / `sample` / `result::{success,no_output,failed}`                                                                     |
+| `codex-rs/memories/write/src/runtime.rs`                                                                              | `MemoryStartupContext`、`StageOneRequestContext`、`stream_stage_one_prompt`（单次流式采样）、`spawn_consolidation_agent`                                                                                            |
+| `codex-rs/memories/write/src/rollout_input.rs`                                                                        | v2 证据分层 `serialize_tiered_input`、`extraction_messages` 分片、`sanitize_response_item_for_memories`、占位符与预算常量                                                                                             |
+| `codex-rs/memories/write/src/phase1_output.rs`                                                                        | v1/v2 输出结构、`output_schema`、解析与二次脱敏/截断                                                                                                                                                                      |
+| `codex-rs/memories/write/src/prompts.rs`                                                                              | `rollout_token_limit`、v1/v2 输入消息模板渲染                                                                                                                                                                             |
+| `codex-rs/memories/write/templates/memories/stage_one_system.md`、`stage_one_system_v2.md`、`stage_one_input*.md` | 提取提示词与取值纪律、no-op 通道                                                                                                                                                                                            |
+| `codex-rs/memories/write/src/guard.rs`                                                                                | 额度守卫判定（后端登录才生效、两个窗口都要满足剩余比例）                                                                                                                                                                    |
+| `codex-rs/memories/write/src/extensions/prune.rs`                                                                     | 记忆扩展资源清理（7 天保留）                                                                                                                                                                                                |
+| `codex-rs/state/src/runtime/memories.rs`                                                                              | `claim_stage1_jobs_for_startup`、`try_claim_stage1_job`、`mark_stage1_job_succeeded{,_no_output}`、`mark_stage1_job_failed`、`prune_stage1_outputs_for_retention`、`enqueue_global_consolidation`；相关状态测试 |
+| `codex-rs/state/memory_migrations/0001_memories.sql`                                                                  | `stage1_outputs` 与 `jobs` 表结构                                                                                                                                                                                       |
+| `codex-rs/state/src/runtime/memory_versions.rs`、`state/src/sqlite.rs`                                              | 分版本记忆状态库路径与按需创建                                                                                                                                                                                              |
+| `codex-rs/config/src/types.rs`                                                                                        | `MemoriesConfig` 默认值与夹取区间（2/10/6/30/256/25 等）                                                                                                                                                                  |
+| `codex-rs/features/src/lib.rs`                                                                                        | `Feature::MemoryTool`（key `memories`、Stage Stable、默认关闭）                                                                                                                                                         |
+| `codex-rs/rollout/src/lib.rs`、`rollout/src/policy.rs`                                                              | 交互式来源白名单、哪些条目允许进入记忆                                                                                                                                                                                      |
+| `codex-rs/model-provider/src/provider.rs`                                                                             | 供应商默认提取/整理模型与可覆写点                                                                                                                                                                                           |
+| `codex-rs/core/src/stream_events_utils.rs`、`core/src/session/session.rs`                                           | 记忆模式（enabled/polluted/disabled）的写入时机                                                                                                                                                                             |
+| `codex-rs/memories/write/src/startup_tests.rs`                                                                        | 端到端行为测试：请求元数据、v2 证据保留/脱敏、模型覆盖、工作区差分                                                                                                                                                          |
