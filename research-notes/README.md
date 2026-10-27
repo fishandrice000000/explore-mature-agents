@@ -116,6 +116,7 @@
 | 01 | [01-codex-memory-system.md](memory-system/codex/01-codex-memory-system.md) | Codex 记忆系统全链路：启动期后台流水线（Phase 1 逐 rollout 纯 sampling 提取 / Phase 2 全局 consolidation agent）、git-baseline 增量与遗忘、只读召回（2500 tokens 摘要注入 + quick memory pass）、citation→usage→留存闭环、ad-hoc note 唯一写入通道、v1/v2 差异、从 Claude Code 导入记忆的迁移规则 |
 | 02 | [02-codex-memory-system-mechanism.md](memory-system/codex/02-codex-memory-system-mechanism.md) | 同主题的机制层重写版（场景驱动、正文不含源码标识符、源码依据集中在文末）：三条路径拆分、三层记忆结构、生成的两段流程、只读消费与检索纪律、引用反馈闭环、修正通道、边界与设计取舍 |
 | 03 | [03-background-extraction.md](memory-system/codex/03-background-extraction.md) | 后台提取（第一阶段）细节：新回合派发与五道关卡、候选会话筛选（10 天窗口 / 6 小时空闲 / 排除自身 / 5000 条扫描）、数据库租约抢占与全局并发上限、重试退避与水位线语义、证据分层裁剪与脱敏、结构化输出契约与 no-op 删除、无心跳的超时边界 |
+| 04 | [04-sqlite-vs-files-source-of-truth.md](memory-system/codex/04-sqlite-vs-files-source-of-truth.md) | SQLite 不是记忆的唯一可信来源：第一阶段产物以库为权威、`raw_memories.md` 与 `rollout_summaries/` 是库的打印视图；第二阶段产物（`MEMORY.md`/`memory_summary.md`/`skills/`）以记忆目录为权威且库里没有镜像表；第二阶段用目录 git 差异而非库水位线判脏；模型上下文只从文件进入；删库会永久丢掉阶段一历史 |
 
 > `01` 为首次探索版（含较多源码标识符），`02` 为按机制讲解规范重写的版本。阅读建议以 `02` 为主、`01` 作为可追溯的细节底稿。
 
