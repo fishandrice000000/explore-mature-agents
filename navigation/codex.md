@@ -154,6 +154,7 @@ rollout 写入有后台 writer task、显式 flush/shutdown 和写锁协调；�
 - `tui` 不只是渲染层，它也负责选择本地 daemon/嵌入式/远端 app-server 目标。
 - `exec` 与 TUI 共享 app-server 语义，但输出层和生命周期不同；比较行为时要区分两者。
 - 许多能力受 feature 或远端配置控制。结论要写清“结构上存在”还是“默认开启”。
+- 记忆流水线的运行时编排**不在** `core/src/memories/`（该目录不存在，`memories/README.md` 未同步）：第一阶段与第二阶段都在 `codex-rs/memories/write/src/`，由 app-server 的回合启动路径派发。
 
 ## 问题到目录
 
@@ -170,6 +171,8 @@ rollout 写入有后台 writer task、显式 flush/shutdown 和写锁协调；�
 | 沙箱与审批 | `codex-rs/sandboxing/`、`execpolicy/`、`core/src/session/` |
 | 配置系统 | `codex-rs/config/`、`config-schema/`、`codex-home/` |
 | 扩展与插件 | `codex-rs/ext/`、`hooks/`、`skills/`、`plugin/` |
+| 长期记忆的生成与提取 | `codex-rs/memories/write/src/`（`start.rs` 派发）、`state/src/runtime/memories.rs`（作业与水位线） |
+| 长期记忆的消费与引用 | `codex-rs/memories/read/src/` |
 | 模型供应商 | `model-provider/`、`models-manager/`、`codex-api/` |
 
 ## 源码锚点
