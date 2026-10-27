@@ -1,6 +1,6 @@
 # 研究笔记
 
-本目录归档 Codex、Claude Code、Pi、SkillOpt 等 Agent 相关项目的源码机制研究笔记。这里只放 Agent 架构与机制相关内容；会话规则、环境配置和工作流说明放在工作区根目录。
+本目录归档 Codex、Claude Code、Pi、SkillOpt、Poirot 等 Agent 相关项目的源码机制研究笔记。这里只放 Agent 架构与机制相关内容；会话规则、环境配置和工作流说明放在工作区根目录。
 
 ## 归档约定
 
@@ -9,7 +9,7 @@
 ```
 
 - `<主题>`：英文 kebab-case，如 `memory-system`、`agent-loop`。
-- `<agent>`：`codex`、`claude-code`、`pi`、`skillopt`；跨 Agent 对照可用 `comparison`。
+- `<agent>`：`codex`、`claude-code`、`pi`、`skillopt`、`poirot`；跨 Agent 对照可用 `comparison`。
 - `<NN>`：在同一个 `<主题>/<agent>/` 目录内从 `01` 独立递增。
 - 每轮一个文件：不追加、不覆盖；追问、计划确认与结论修正也另建新文件。
 - 文件结构：一级标题 → 用户提问原文 → 完整答复。
@@ -119,6 +119,12 @@
 
 > `01` 为首次探索版（含较多源码标识符），`02` 为按机制讲解规范重写的版本。阅读建议以 `02` 为主、`01` 作为可追溯的细节底稿。
 
+#### poirot
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-long-term-memory-pipeline.md](memory-system/poirot/01-long-term-memory-pipeline.md) | 被动旁路式长期记忆全链路：Markdown 单文件真相源 + 空格分词 BM25、注入隐藏用户消息、内容哈希去重编码、后台抽取与最旧 10 条合并；衰减/遗忘/关联的落地程度，以及实测的中文零召回、每次召回 1.2 秒整库重写、注入消息回流成检索词、空合并清空记忆等断点 |
+
 ### mcp-tools
 
 #### claude-code
@@ -154,6 +160,12 @@
 |---|---|---|
 | 01 | [01-research-plan.md](multi-agent/codex/01-research-plan.md) | 研究计划：Codex 常驻多 Agent（注册表 / 身份 / 角色 / 消息板 / 生命周期控制）的开启条件、任务分配、通信、上下文隔离与并发；含待确认范围（新旧两版如何取舍、是否包含角色与消息板、worktree 边界） |
 | 02 | [02-persistent-teammate-collaboration.md](multi-agent/codex/02-persistent-teammate-collaboration.md) | Codex 常驻多 Agent 机制：版本与主动委派模式的开启条件、父代理显式下发（无任务池）、内存邮箱与触发型/非触发型消息、all/none 有损上下文继承、槽位准入与驻留驱逐，以及文件级并发的缺口 |
+
+#### poirot
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-delegation-mechanism.md](multi-agent/poirot/01-delegation-mechanism.md) | 委派式多 Agent 的装配、执行与结果回流：装配期决定可委派对象、软路由（提示词 + 工具）、一次委派的六阶段时序、pi/codex/claude/自拷贝四种执行体的协议差异、产物门槛导致外部委派恒判失败、编排产物无消费者、并发与超时边界，以及自拷贝两条路径的执行断链 |
 
 ### permission-system
 
