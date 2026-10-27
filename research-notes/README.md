@@ -208,6 +208,14 @@
 |---|---|---|
 | 01 | [01-chain-of-thought-propagation.md](reasoning-propagation/comparison/01-chain-of-thought-propagation.md) | Pi、Codex、Claude Code 的推理块回传对照：模型下发形态、本地持久化、跨轮/工具续轮回放、用户可见性、换模型与压缩边界 |
 
+### sandbox
+
+#### poirot
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-sandbox-isolation-and-tool-surface.md](sandbox/poirot/01-sandbox-isolation-and-tool-surface.md) | 沙箱的隔离与使用面：三组件（运行时/路径翻译/安全守卫）固定编排、本地档白名单与容器档三层缓存/预热池/空闲回收、懒获取与状态恢复、6 个工具的额外约束、产物复制与下载服务、借给 specialist 的 stdio MCP 桥 |
+
 ### session-history
 
 #### claude-code
