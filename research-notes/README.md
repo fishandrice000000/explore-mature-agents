@@ -125,6 +125,14 @@
 |---|---|---|
 | 01 | [01-long-term-memory-pipeline.md](memory-system/poirot/01-long-term-memory-pipeline.md) | 被动旁路式长期记忆全链路：Markdown 单文件真相源 + 空格分词 BM25、注入隐藏用户消息、内容哈希去重编码、后台抽取与最旧 10 条合并；衰减/遗忘/关联的落地程度，以及实测的中文零召回、每次召回 1.2 秒整库重写、注入消息回流成检索词、空合并清空记忆等断点 |
 
+### local-state
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-sqlite-local-state.md](local-state/codex/01-sqlite-local-state.md) | SQLite 本地状态层：七个库文件的职责划分（线程目录、分页历史投影、日志、目标、消息队列、记忆产物）、哪些数据可重建哪些不可、列表的“扫文件 + 读修复 + 查库”混合路径与降级、分库与保留 JSONL 的设计取舍 |
+
 ### mcp-tools
 
 #### claude-code
