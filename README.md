@@ -25,6 +25,7 @@
 | Pi | `/home/fishandrice/Backend/pi` | TypeScript / npm monorepo，包含 agent、coding-agent、ai、tui、durable 等包 |
 | SkillOpt | `/home/fishandrice/Backend/SkillOpt` | Python 3.10+ 包（`skillopt`、`skillopt_sleep`、`skillopt_webui`），把 Markdown 技能文档当作可训练参数的离线优化器 |
 | Poirot | `/home/fishandrice/Backend/poirot` | Python 3.12 + LangGraph 1.x 的单进程研究 Agent；一个 Leader ReAct 图配 20 余个横切中间件，属自研未成熟项目 |
+| Hermes Agent | `/home/fishandrice/Backend/hermes-agent` | Python 主程序 + TypeScript 工作区（`ui-tui`、`web`、`apps/desktop`）；CLI、TUI、消息网关、dashboard、桌面、ACP 多入口共享一个 `AIAgent` 内核，并带一套自我改进闭环（技能/记忆/会话检索） |
 
 这些仓库始终只读：不修改、不创建、不删除文件，也不在仓库内运行会写缓存、构建产物或联网的命令。研究脚本与临时产物放在 `/tmp` 或本工作区。
 
@@ -42,3 +43,4 @@
 - Pi 研究时跳过 `dist/`、`node_modules/` 与生成的模型文件，优先从 `packages/*/src/` 进入。
 - SkillOpt 是 Git 仓库；研究时跳过 `index.html`、`skillopt.html`、`docs/*.html`、`blog/` 等静态页与 `tests/fixtures/`，入口在 `scripts/` 与 `skillopt/`。
 - Poirot 是 Git 仓库；`design_docs/`、`openspec/`、`skills/`、`.poirot/` 被 gitignore 因而不在仓库内，注释里的设计文档编号无法回查。入口在 `poirot/backend/app/bootstrap.py` 与 `agents/leader/factory.py`。
+- Hermes Agent 是 Git 仓库且体量大（`.git` 约 1.4G）；跳过 `website/`、锁文件与前端产物，根目录 `run_agent.py`/`cli.py` 只是门面，真实循环在 `agent/conversation_loop.py` 与 `agent/turn_context.py`，入口从 `hermes_cli/main.py` 进入。

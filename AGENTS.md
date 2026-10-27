@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本目录用于**只读研究** Codex、Claude Code、Pi、SkillOpt、Poirot 等 Agent 相关项目的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
+本目录用于**只读研究** Codex、Claude Code、Pi、SkillOpt、Poirot、Hermes Agent 等 Agent 相关项目的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
 
 ## 1. 角色与目标
 
@@ -31,6 +31,7 @@
 | Pi | `/home/fishandrice/Backend/pi` | TypeScript / npm monorepo（`packages/`：`agent`、`ai`、`coding-agent`、`codemode`、`tui`、`mcp`、`evals`、`telemetry` 等）；有完整 `package.json`、`AGENTS.md` |
 | SkillOpt | `/home/fishandrice/Backend/SkillOpt` | Python 3.10+ 包（`pyproject.toml`）：`skillopt/` 研究训练引擎、`skillopt_sleep/` 独立夜间自演化、`skillopt_webui/` Gradio 面板；有 102 个 pytest 文件与 mkdocs 文档 |
 | Poirot | `/home/fishandrice/Backend/poirot` | Python 3.12+ 包（`pyproject.toml`）：LangGraph 单 Leader ReAct 图 + 20 余个横切中间件，装配在 `poirot/backend/app/bootstrap.py`；221 个 pytest 文件；**自研未成熟项目**，默认开关与 README 宣称有多处偏差 |
+| Hermes Agent | `/home/fishandrice/Backend/hermes-agent` | Python 3.11–3.13 主程序（`hermes_cli/`、`agent/`、`tools/`、`gateway/`、`hermes_state*.py`）+ npm workspaces（`ui-tui/`、`web/`、`apps/desktop/`）；约 1250 个非测试 `.py`、约 3460 个 pytest 文件；CLI、TUI、消息网关、dashboard、桌面、ACP 多入口共享一个 `AIAgent` 内核；`.git` 约 1.4G |
 
 参考材料（不是研究对象）：
 
@@ -42,6 +43,7 @@
 - Codex 是 git 仓库，`rg` 正常；但注意跳过 `MODULE.bazel.lock`、`app-server-protocol/schema/`（生成代码）与 `third_party/`、`vendor/`。
 - SkillOpt 是 git 仓库，`rg` 正常；跳过 `index.html`、`skillopt.html`、`docs/*.html`、`blog/`（渲染后的静态页）、`tests/fixtures/` 与 `__pycache__/`，源码从 `scripts/`、`skillopt/`、`skillopt_sleep/` 进入。
 - Poirot 是 git 仓库，`rg` 正常；`design_docs/`、`openspec/`、`skills/`、`.poirot/` 均被 gitignore，注释里的设计文档编号无法回查；源码从 `poirot/backend/` 进入，先看 `app/bootstrap.py` 与 `agents/leader/factory.py`。
+- Hermes Agent 是 git 仓库，`rg` 正常；跳过 `.git`（约 1.4G）、`website/`、`package-lock.json`/`uv.lock`；`tests/`（约 3460 文件）与 `contributors/` 只在需要行为证据时定点读。根目录 `run_agent.py`/`cli.py` 是门面，真实循环在 `agent/conversation_loop.py`、`agent/turn_context.py`；入口从 `hermes_cli/main.py` 与 `hermes_cli/cli_agent_setup_mixin.py` 进入。
 - 每个被研究仓库自身可能有 `AGENTS.md`（Pi 根目录有；Codex 有嵌套的），读它是为了理解项目约定，不代表可以修改。
 
 ## 3. 每个研究问题的标准流程
@@ -152,7 +154,7 @@
 
 ## 8. 安全与边界
 
-- 所有源码仓库（Codex、Claude Code、Pi、SkillOpt、Poirot）**始终只读**：不修改、不创建、不删除、不格式化，不执行 git 写操作，不运行会写缓存/构建产物或联网调用模型的构建与测试。
+- 所有源码仓库（Codex、Claude Code、Pi、SkillOpt、Poirot、Hermes Agent）**始终只读**：不修改、不创建、不删除、不格式化，不执行 git 写操作，不运行会写缓存/构建产物或联网调用模型的构建与测试。
 - 研究脚本与临时产物放 `/tmp` 或本目录，不放进源码仓库。
 - 不擅自扩大研究范围；不因为某个机制"看起来相关"就顺带研究。
 - 不把推断当事实；不确定就说不确定。
@@ -180,10 +182,11 @@
 | Pi | [`navigation/pi.md`](navigation/pi.md) | `packages/coding-agent/src/main.ts` | `agent-core` 是通用循环；`coding-agent` 组合会话与模式；`durable` 是独立运行时 |
 | SkillOpt | [`navigation/skillopt.md`](navigation/skillopt.md) | `scripts/train.py` | 不是 Agent Harness：离线优化 Markdown 技能文档；`skillopt_sleep` 与 `skillopt/` 无代码依赖 |
 | Poirot | [`navigation/poirot.md`](navigation/poirot.md) | `poirot/backend/app/cli/main.py` | 单进程单 Agent：`bootstrap` 装配能力，`leader/factory.py` 编译 LangGraph 图，记忆/技能/沙箱/MCP/多 Agent 都是中间件；默认开关分散 |
+| Hermes Agent | [`navigation/hermes-agent.md`](navigation/hermes-agent.md) | `hermes_cli/main.py` → `cmd_chat` / `cmd_dashboard` / gateway | 多入口共享一个 `AIAgent`；`run_agent.py` 是指向 `agent/*` 的门面；`gateway/`（消息平台）与 `tui_gateway/`（TUI/桌面 RPC）是两套后端；22 个平台适配器在 `plugins/platforms/` |
 
 使用约定：
 
 - 架构导航只负责**定位和建立全局模型**，不替代对具体实现的源码追踪。
 - 若架构文档与源码不一致，以源码为准，并在完成研究后更新对应导航文档。
-- Claude Code 快照使用 `rg --no-ignore`；Codex 和 Pi 跳过生成物、依赖目录与构建产物；SkillOpt 跳过静态页与测试 fixture；Poirot 的 `design_docs/`、`openspec/`、`skills/`、`.poirot/` 不在仓库内。
+- Claude Code 快照使用 `rg --no-ignore`；Codex 和 Pi 跳过生成物、依赖目录与构建产物；SkillOpt 跳过静态页与测试 fixture；Poirot 的 `design_docs/`、`openspec/`、`skills/`、`.poirot/` 不在仓库内；Hermes 跳过 `.git`、`website/`、锁文件与前端产物，改从 `agent/` 与 `hermes_cli/` 进入。
 - 架构导航的维护轮次属于元指令/工作流文档，不归档到 `research-notes/`。

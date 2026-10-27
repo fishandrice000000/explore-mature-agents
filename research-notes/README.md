@@ -9,7 +9,7 @@
 ```
 
 - `<主题>`：英文 kebab-case，如 `memory-system`、`agent-loop`。
-- `<agent>`：`codex`、`claude-code`、`pi`、`skillopt`、`poirot`；跨 Agent 对照可用 `comparison`。
+- `<agent>`：`codex`、`claude-code`、`pi`、`skillopt`、`poirot`、`hermes-agent`；跨 Agent 对照可用 `comparison`。
 - `<NN>`：在同一个 `<主题>/<agent>/` 目录内从 `01` 独立递增。
 - 每轮一个文件：不追加、不覆盖；追问、计划确认与结论修正也另建新文件。
 - 文件结构：一级标题 → 用户提问原文 → 完整答复。
@@ -108,6 +108,7 @@
 | 02 | [02-memory-recall.md](memory-system/claude-code/02-memory-recall.md) | 召回详解：`startRelevantMemoryPrefetch` 三步流程（扫描 → Sonnet 选择器 → 读取注入）、零等待消费点、三层去重与三层预算 |
 | 03 | [03-recall-switch.md](memory-system/claude-code/03-recall-switch.md) | `tengu_moth_copse` 开关的来源：GrowthBook 远端求值与四级缓存链、实验曝光上报、刷新间隔；“用户手动切换”与“harness 自适应”均不成立 |
 | 04 | [04-prefetch-recall-limitation.md](memory-system/claude-code/04-prefetch-recall-limitation.md) | 预取的时效性评价：注入后记忆常驻上下文（至压缩为止）；无工具调用的回合不会消费预取；“鸡肋”论成立与不成立的部分，以及源码位置速查 |
+| 05 | [05-extraction-selection.md](memory-system/claude-code/05-extraction-selection.md) | 提取判据：触发层门控与通道互斥、游标窗口与禁止验证、四类型正向判据与负向五条清单、显式请求例外、团队维度的去向与密钥拦截、清单/索引/整理如何反向塑造提取内容 |
 
 #### codex
 
