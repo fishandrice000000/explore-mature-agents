@@ -1,6 +1,6 @@
 # 架构导航
 
-本目录保存三个被研究对象的总览式架构导航。它们帮助新会话快速建立全局模型，定位到正确的模块与入口，然后回到源码做定向追踪。
+本目录保存各被研究对象的总览式架构导航。它们帮助新会话快速建立全局模型，定位到正确的模块与入口，然后回到源码做定向追踪。
 
 ## 导航列表
 
@@ -9,8 +9,9 @@
 | Codex | `/home/fishandrice/Backend/codex` | [`codex.md`](codex.md) | Rust workspace；TUI、exec、IDE/SDK 通过 app-server 汇合，thread/turn/session 运行在 core |
 | Claude Code | `/home/fishandrice/Backend/claude-code/claude-code-2.1.88-source` | [`claude-code.md`](claude-code.md) | React/Ink 终端应用；REPL 负责交互编排，`query.ts` 是共同 agent 循环 |
 | Pi | `/home/fishandrice/Backend/pi` | [`pi.md`](pi.md) | npm monorepo；agent-core 提供通用循环，coding-agent 组合 CLI 与会话，durable 是独立运行时 |
+| SkillOpt | `/home/fishandrice/Backend/SkillOpt` | [`skillopt.md`](skillopt.md) | Python 包；不是 Agent Harness，而是离线优化 Markdown 技能文档的训练器，另有独立的夜间自演化包 |
 
-三份导航均在 2026-10-17 核对。导航文档不是行为结论，具体机制仍以源码和测试为准。
+前三份导航在 2026-10-17 核对，SkillOpt 于 2026-10-27 新增。导航文档不是行为结论，具体机制仍以源码和测试为准。
 
 ## 使用顺序
 
@@ -24,7 +25,7 @@
 - 导航只记录稳定的结构信息：运行平面、主调用链、模块职责、问题到目录、源码锚点。
 - 源码发生变化时，完成研究后同步修正导航，并更新核对日期。
 - 涉及开关的能力要区分“结构上存在”与“默认开启”；远端开关的真实取值不能从本地仓库推断。
-- 三个源码仓库始终只读；不要在其中创建文件、格式化代码或运行会写缓存与构建产物的命令。
+- 所有源码仓库始终只读；不要在其中创建文件、格式化代码或运行会写缓存、产物或联网的命令。
 
 ## 相关文档
 
