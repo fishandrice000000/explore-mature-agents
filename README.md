@@ -1,6 +1,6 @@
 # explore-mature-agents
 
-只读研究 Codex、Claude Code、Pi 等成熟 Agent Harness 的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
+只读研究 Codex、Claude Code、Pi、SkillOpt 等成熟 Agent 相关项目的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
 
 ## 目录结构
 
@@ -23,8 +23,9 @@
 | Codex | `/home/fishandrice/Backend/codex` | Rust workspace（`codex-rs/`）；TUI、exec、IDE/SDK 通过 app-server 汇合 |
 | Claude Code | `/home/fishandrice/Backend/claude-code/claude-code-2.1.88-source` | TypeScript 源码快照，无构建配置，只能静态阅读 |
 | Pi | `/home/fishandrice/Backend/pi` | TypeScript / npm monorepo，包含 agent、coding-agent、ai、tui、durable 等包 |
+| SkillOpt | `/home/fishandrice/Backend/SkillOpt` | Python 3.10+ 包（`skillopt`、`skillopt_sleep`、`skillopt_webui`），把 Markdown 技能文档当作可训练参数的离线优化器 |
 
-这三个仓库始终只读：不修改、不创建、不删除文件，也不在仓库内运行会写缓存或构建产物的命令。研究脚本与临时产物放在 `/tmp` 或本工作区。
+这些仓库始终只读：不修改、不创建、不删除文件，也不在仓库内运行会写缓存、构建产物或联网的命令。研究脚本与临时产物放在 `/tmp` 或本工作区。
 
 ## 研究产出
 
@@ -38,3 +39,4 @@
 - Claude Code 快照不是 Git 仓库，且 `/home/fishandrice/.gitignore` 内容为 `*`，在该目录使用 `rg` 必须加 `--no-ignore`。
 - Codex 研究时跳过 `MODULE.bazel.lock`、`app-server-protocol/schema/` 等生成内容，以及 `third_party/`、`vendor/`。
 - Pi 研究时跳过 `dist/`、`node_modules/` 与生成的模型文件，优先从 `packages/*/src/` 进入。
+- SkillOpt 是 Git 仓库；研究时跳过 `index.html`、`skillopt.html`、`docs/*.html`、`blog/` 等静态页与 `tests/fixtures/`，入口在 `scripts/` 与 `skillopt/`。

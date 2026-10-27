@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本目录用于**只读研究** Codex、Claude Code、Pi 等 Agent Harness 的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
+本目录用于**只读研究** Codex、Claude Code、Pi、SkillOpt 等 Agent 相关项目的源码实现，产出可复用的机制认知。这里不是这些项目的开发目录。
 
 ## 1. 角色与目标
 
@@ -29,6 +29,7 @@
 | Codex | `/home/fishandrice/Backend/codex` | Rust workspace（`codex-rs/`，约 180+ crate）；Bazel + Cargo；仓库根有 `docs/` |
 | Claude Code | `/home/fishandrice/Backend/claude-code/claude-code-2.1.88-source` | TypeScript 源码快照（`src/`，约 1900 文件）；**没有** package.json / 构建配置，不能构建或运行，只能静态阅读 |
 | Pi | `/home/fishandrice/Backend/pi` | TypeScript / npm monorepo（`packages/`：`agent`、`ai`、`coding-agent`、`codemode`、`tui`、`mcp`、`evals`、`telemetry` 等）；有完整 `package.json`、`AGENTS.md` |
+| SkillOpt | `/home/fishandrice/Backend/SkillOpt` | Python 3.10+ 包（`pyproject.toml`）：`skillopt/` 研究训练引擎、`skillopt_sleep/` 独立夜间自演化、`skillopt_webui/` Gradio 面板；有 102 个 pytest 文件与 mkdocs 文档 |
 
 参考材料（不是研究对象）：
 
@@ -38,6 +39,7 @@
 
 - `/home/fishandrice/.gitignore` 内容为 `*`，而 `claude-code-2.1.88-source` 不是 git 仓库 → 在该目录用 `rg` 必须加 `--no-ignore`，否则整棵树被忽略。
 - Codex 是 git 仓库，`rg` 正常；但注意跳过 `MODULE.bazel.lock`、`app-server-protocol/schema/`（生成代码）与 `third_party/`、`vendor/`。
+- SkillOpt 是 git 仓库，`rg` 正常；跳过 `index.html`、`skillopt.html`、`docs/*.html`、`blog/`（渲染后的静态页）、`tests/fixtures/` 与 `__pycache__/`，源码从 `scripts/`、`skillopt/`、`skillopt_sleep/` 进入。
 - 每个被研究仓库自身可能有 `AGENTS.md`（Pi 根目录有；Codex 有嵌套的），读它是为了理解项目约定，不代表可以修改。
 
 ## 3. 每个研究问题的标准流程
@@ -115,7 +117,7 @@
 
 ## 7. Git 提交与远端同步
 
-本工作区使用 Git 记录研究资料；三个被研究的源码仓库仍保持只读。
+本工作区使用 Git 记录研究资料；被研究的源码仓库仍保持只读。
 
 ### 提交单位
 
@@ -132,7 +134,7 @@
 ```
 
 - `<主题>`：英文 kebab-case，如 `memory-system`、`multi-agent`。
-- `<Agent>`：`codex`、`claude-code`、`pi`；跨 Agent 对照使用 `comparison`。
+- `<Agent>`：`codex`、`claude-code`、`pi`、`skillopt`；跨 Agent 对照使用 `comparison`。
 - 工作区元信息使用 `[workspace@<范围>]`，例如 `[workspace@navigation]`、`[workspace@git]`。
 - `<内容>`：简短说明本次提交做了什么，使用中文。
 - 示例：
@@ -148,7 +150,7 @@
 
 ## 8. 安全与边界
 
-- 三个源码仓库（Codex、Claude Code、Pi）**始终只读**：不修改、不创建、不删除、不格式化，不执行 git 写操作，不运行会写缓存/构建产物的构建或测试。
+- 所有源码仓库（Codex、Claude Code、Pi、SkillOpt）**始终只读**：不修改、不创建、不删除、不格式化，不执行 git 写操作，不运行会写缓存/构建产物或联网调用模型的构建与测试。
 - 研究脚本与临时产物放 `/tmp` 或本目录，不放进源码仓库。
 - 不擅自扩大研究范围；不因为某个机制"看起来相关"就顺带研究。
 - 不把推断当事实；不确定就说不确定。
@@ -174,10 +176,11 @@
 | Codex | [`navigation/codex.md`](navigation/codex.md) | `codex-rs/cli/src/main.rs` | TUI、exec、IDE/SDK 通过 app-server 汇合；core 管 thread/turn/session；rollout 管历史 |
 | Claude Code | [`navigation/claude-code.md`](navigation/claude-code.md) | `src/entrypoints/cli.tsx` → `src/main.tsx` | REPL 负责交互编排；`query.ts` 是共同 agent 循环；快照不可构建 |
 | Pi | [`navigation/pi.md`](navigation/pi.md) | `packages/coding-agent/src/main.ts` | `agent-core` 是通用循环；`coding-agent` 组合会话与模式；`durable` 是独立运行时 |
+| SkillOpt | [`navigation/skillopt.md`](navigation/skillopt.md) | `scripts/train.py` | 不是 Agent Harness：离线优化 Markdown 技能文档；`skillopt_sleep` 与 `skillopt/` 无代码依赖 |
 
 使用约定：
 
 - 架构导航只负责**定位和建立全局模型**，不替代对具体实现的源码追踪。
 - 若架构文档与源码不一致，以源码为准，并在完成研究后更新对应导航文档。
-- Claude Code 快照使用 `rg --no-ignore`；Codex 和 Pi 跳过生成物、依赖目录与构建产物。
+- Claude Code 快照使用 `rg --no-ignore`；Codex 和 Pi 跳过生成物、依赖目录与构建产物；SkillOpt 跳过静态页与测试 fixture。
 - 架构导航的维护轮次属于元指令/工作流文档，不归档到 `research-notes/`。

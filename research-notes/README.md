@@ -1,6 +1,6 @@
 # 研究笔记
 
-本目录归档 Codex、Claude Code、Pi 等 Agent Harness 的源码机制研究笔记。这里只放 Agent 架构与机制相关内容；会话规则、环境配置和工作流说明放在工作区根目录。
+本目录归档 Codex、Claude Code、Pi、SkillOpt 等 Agent 相关项目的源码机制研究笔记。这里只放 Agent 架构与机制相关内容；会话规则、环境配置和工作流说明放在工作区根目录。
 
 ## 归档约定
 
@@ -9,7 +9,7 @@
 ```
 
 - `<主题>`：英文 kebab-case，如 `memory-system`、`agent-loop`。
-- `<agent>`：`codex`、`claude-code`、`pi`；跨 Agent 对照可用 `comparison`。
+- `<agent>`：`codex`、`claude-code`、`pi`、`skillopt`；跨 Agent 对照可用 `comparison`。
 - `<NN>`：在同一个 `<主题>/<agent>/` 目录内从 `01` 独立递增。
 - 每轮一个文件：不追加、不覆盖；追问、计划确认与结论修正也另建新文件。
 - 文件结构：一级标题 → 用户提问原文 → 完整答复。
@@ -115,6 +115,7 @@
 |---|---|---|
 | 01 | [01-codex-memory-system.md](memory-system/codex/01-codex-memory-system.md) | Codex 记忆系统全链路：启动期后台流水线（Phase 1 逐 rollout 纯 sampling 提取 / Phase 2 全局 consolidation agent）、git-baseline 增量与遗忘、只读召回（2500 tokens 摘要注入 + quick memory pass）、citation→usage→留存闭环、ad-hoc note 唯一写入通道、v1/v2 差异、从 Claude Code 导入记忆的迁移规则 |
 | 02 | [02-codex-memory-system-mechanism.md](memory-system/codex/02-codex-memory-system-mechanism.md) | 同主题的机制层重写版（场景驱动、正文不含源码标识符、源码依据集中在文末）：三条路径拆分、三层记忆结构、生成的两段流程、只读消费与检索纪律、引用反馈闭环、修正通道、边界与设计取舍 |
+| 03 | [03-background-extraction.md](memory-system/codex/03-background-extraction.md) | 后台提取（第一阶段）细节：新回合派发与五道关卡、候选会话筛选（10 天窗口 / 6 小时空闲 / 排除自身 / 5000 条扫描）、数据库租约抢占与全局并发上限、重试退避与水位线语义、证据分层裁剪与脱敏、结构化输出契约与 no-op 删除、无心跳的超时边界 |
 
 > `01` 为首次探索版（含较多源码标识符），`02` 为按机制讲解规范重写的版本。阅读建议以 `02` 为主、`01` 作为可追溯的细节底稿。
 
@@ -168,6 +169,14 @@
 |---|---|---|
 | 01 | [01-approval-and-sandbox-model.md](permission-system/codex/01-approval-and-sandbox-model.md) | Codex 的审批策略与沙箱权限双层模型：Read Only/Ask/Approve for me/Full Access、`on-request`/`never`/`untrusted`/`granular`、工作区与网络范围、execpolicy、补丁与 MCP 判定、自动审查、授权记忆与边界 |
 
+### plugin-system
+
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-extension-mechanism.md](plugin-system/pi/01-extension-mechanism.md) | 扩展程序机制：Jiti 源码直跑与三态解析、来源顺序与一层发现规则、加载期「只登记不作用」的两阶段提交、信任两趟装载、注册面四档强度与冲突策略、事件分发的快照+串行+六类合并语义、失败分级（观察类吞掉/工具前置阻断/shell 接管不回落）、工具同构包装与嵌套调用上限、reload 失效协议 |
+
 ### prompt-layering
 
 #### codex
@@ -205,6 +214,6 @@
 
 ## 说明
 
-- 三个源码仓库（`/home/fishandrice/Backend/codex`、`/home/fishandrice/Backend/claude-code`、`/home/fishandrice/Backend/pi`）始终只读。
+- 被研究的源码仓库（`/home/fishandrice/Backend/codex`、`/home/fishandrice/Backend/claude-code`、`/home/fishandrice/Backend/pi`、`/home/fishandrice/Backend/SkillOpt`）始终只读。
 - Claude Code 侧为 `claude-code-2.1.88-source` 源码快照；`feature('...')` 为构建期常量，GrowthBook（`tengu_*`）取值在服务端，因此“生产实际启用哪条分支”无法从本地源码判定。
 - 搜索提示：`/home/fishandrice/.gitignore` 内容为 `*`，而 Claude Code 目录不是 Git 仓库，因此在该目录下使用 `rg` 需加 `--no-ignore`。
