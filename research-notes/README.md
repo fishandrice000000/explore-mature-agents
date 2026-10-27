@@ -129,6 +129,14 @@
 |---|---|---|
 | 01 | [01-long-term-memory-pipeline.md](memory-system/poirot/01-long-term-memory-pipeline.md) | 被动旁路式长期记忆全链路：Markdown 单文件真相源 + 空格分词 BM25、注入隐藏用户消息、内容哈希去重编码、后台抽取与最旧 10 条合并；衰减/遗忘/关联的落地程度，以及实测的中文零召回、每次召回 1.2 秒整库重写、注入消息回流成检索词、空合并清空记忆等断点 |
 
+#### hermes-agent
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-extraction.md](memory-system/hermes-agent/01-extraction.md) | 记忆提取的三条写入通道（主模型主动写 / 每 10 轮后台复盘 fork / 外部 provider 自动抽取）及其触发条件、失败语义；“有效性”靠什么保证（提示词里的选题纪律 + 字符预算 + 精确去重 + 注入扫描 + 写入审批 + 谁能写），以及明确缺失的事后校验 |
+| 02 | [02-recall.md](memory-system/hermes-agent/02-recall.md) | 召回的两条相反路径：内置记忆的会话内冻结快照（恒定注入、压缩/恢复才重建）与外部记忆的每轮检索旁路（平凡提示词过滤、技能脚手架剥离、单飞线程 8 秒上限、`<memory-context>` 围栏注入用户消息发送副本、确定性召回指示、轮末预热） |
+| 03 | [03-consolidation.md](memory-system/hermes-agent/03-consolidation.md) | 记忆整理：没有时间戳/TTL/衰减/后台整理器，只有容量硬拒绝、子串定位更新、原子批量合并、漂移检测与 `.bak`、读失败拒写、加载期去重与占位符替换，以及审批/journey/reset 三个用户闸门；外部侧仅 Holographic 有信任分与半衰期衰减 |
+
 ### local-state
 
 #### codex
