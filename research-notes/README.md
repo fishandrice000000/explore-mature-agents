@@ -117,6 +117,8 @@
 | 02 | [02-codex-memory-system-mechanism.md](memory-system/codex/02-codex-memory-system-mechanism.md) | 同主题的机制层重写版（场景驱动、正文不含源码标识符、源码依据集中在文末）：三条路径拆分、三层记忆结构、生成的两段流程、只读消费与检索纪律、引用反馈闭环、修正通道、边界与设计取舍 |
 | 03 | [03-background-extraction.md](memory-system/codex/03-background-extraction.md) | 后台提取（第一阶段）细节：新回合派发与五道关卡、候选会话筛选（10 天窗口 / 6 小时空闲 / 排除自身 / 5000 条扫描）、数据库租约抢占与全局并发上限、重试退避与水位线语义、证据分层裁剪与脱敏、结构化输出契约与 no-op 删除、无心跳的超时边界 |
 | 04 | [04-sqlite-vs-files-source-of-truth.md](memory-system/codex/04-sqlite-vs-files-source-of-truth.md) | SQLite 不是记忆的唯一可信来源：第一阶段产物以库为权威、`raw_memories.md` 与 `rollout_summaries/` 是库的打印视图；第二阶段产物（`MEMORY.md`/`memory_summary.md`/`skills/`）以记忆目录为权威且库里没有镜像表；第二阶段用目录 git 差异而非库水位线判脏；模型上下文只从文件进入；删库会永久丢掉阶段一历史 |
+| 05 | [05-v2-summary-artifacts.md](memory-system/codex/05-v2-summary-artifacts.md) | v2 的两件摘要产物：单会话回顾稿（内容契约：任务历史而非画像、偏好不得升级、证据分级；一次强制 JSON 采样生成；9000 字节截断；渲染成文件并全量对齐）与全局紧凑摘要（四标题 + `v1` 首行 + 1 万字节契约；单飞整理代理 + git 差异判脏；产物校验四步与失败不动基线；2500 tokens 注入开发者指令、按需展开回顾稿） |
+| 06 | [06-extraction-prompt.md](memory-system/codex/06-extraction-prompt.md) | 提取模型的提示词与约束手段：v2 系统提示词与输入封装模板全文（读者交代、忠实与时间序、偏好不得升格、证据分级、会话内容不可信、空串弃权）、六道闸（候选会话筛选 / 证据分层裁剪 / 写作纪律 / 严格 JSON / 回程解析脱敏截断 / 用量淘汰）、v1 清单式约束的对照 |
 
 > `01` 为首次探索版（含较多源码标识符），`02` 为按机制讲解规范重写的版本。阅读建议以 `02` 为主、`01` 作为可追溯的细节底稿。
 
@@ -242,6 +244,14 @@
 |---|---|---|
 | 01 | [01-research-plan.md](task-system/claude-code/01-research-plan.md) | 研究计划：Claude Code 是否存在与 `learn-claude-code` s10 等价的 Task System，以及它的运行机制。含初步只读核查结论（存在，且为同一设计思路）与待确认的范围歧义（任务清单 vs 后台任务系统） |
 | 02 | [02-task-list-mechanism.md](task-system/claude-code/02-task-list-mechanism.md) | 任务清单机制的完整讲解：任务记录结构、编号水位线、双向依赖、认领准入规则、读时解锁、周期性提醒、锁与并发、创建/完成钩子、协作语义，以及与 s10 的逐条对照 |
+
+### instruction-files
+
+#### comparison
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-agents-md-handling.md](instruction-files/comparison/01-agents-md-handling.md) | Codex 与 Pi 对 AGENTS.md 一类指令文件的特殊处理对照：发现范围与边界（项目根 vs 文件系统根）、候选名与覆盖语义、体积预算、注入载体（世界状态差分 vs 系统提示段落）、重读时机（每步刷新全局但缓存仓库 vs 仅显式重载）、强制性与“深层文件靠模型自愿”的分界 |
 
 ## 说明
 
