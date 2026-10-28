@@ -17,6 +17,15 @@
 
 ## 索引
 
+### provider-compatibility
+
+#### pi
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-opencode-go-provider.md](provider-compatibility/pi/01-opencode-go-provider.md) | OpenCode Go 供应商接入：供应商注册与逐模型 catalog 修补、`deepseek-v4.1-flash` 的思考档位表与就近改写、DeepSeek 思考字段与 reasoning 回放、会话头、端点与协议边界，末节列出 JadeCode 的移植实现点 |
+| 02 | [02-chat-completions-client.md](provider-compatibility/pi/02-chat-completions-client.md) | 自研 Chat Completions 客户端的难度分解：由 SDK 代劳的 SSE 分帧/增量拼装/错误语义、模块级工作量与五个高危边界、依赖取舍、对 JadeCode 最小侵入方案与否决条件 |
+
 ### tui
 
 #### pi
