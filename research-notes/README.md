@@ -230,6 +230,18 @@
 
 ### sandbox
 
+#### claude-code
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-linux-runtime-sandbox.md](sandbox/claude-code/01-linux-runtime-sandbox.md) | Linux 运行时沙箱的强制层：逐命令字符串包装、bwrap 挂载白名单与危险文件黑名单、仅拦 Unix socket 创建的预编译 seccomp、占位挂载与宿主清理、只包 shell 类工具、Linux 无违规上报下的提示词+人工审批兜底 |
+
+#### codex
+
+| # | 文件 | 主题 |
+|---|---|---|
+| 01 | [01-linux-runtime-sandbox.md](sandbox/codex/01-linux-runtime-sandbox.md) | Linux 运行时沙箱的强制层：权限档案到沙箱类型的翻译链、外层 bwrap 与内层 seccomp 助手双层结构、六阶段挂载合成与掩码/占位/防创建、控制 socket 掩码、拒绝启发式与两次尝试升级闸门、文件系统助手与 MCP 覆盖面 |
+
 #### poirot
 
 | # | 文件 | 主题 |
